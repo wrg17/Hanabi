@@ -40,7 +40,7 @@ class Card:
 
 # TODO setup a data structure for card rank and suit for faster comparison and storage
 rank_list = [RANK_ONE, RANK_TWO, RANK_THREE, RANK_FOUR, RANK_FIVE]
-suit_list = []
+suit_list = [SUIT_BLUE, SUIT_GREEN, SUIT_YELLOW, SUIT_RED, SUIT_WHITE, SUIT_RAINBOW]
 
 
 class Pack:
@@ -61,16 +61,20 @@ class Pack:
         # TODO Implement
         return None
 
+    # COMMENT if we have a a __draw function in player, is this needed - Vik
+    """
     def draw(self):
         drawn = self.deck.pop()
         self.card_quantity[drawn] -= 1
         assert self.card_quantity[drawn] >= 0
         return drawn
+    """
 
 
 class Player:
-    def __init__(self, parent_g):
+    def __init__(self, player_id, parent_g):
         self.hand = []
+        self.id = player_id
         self.game = parent_g
 
     def __draw(self):
@@ -78,10 +82,10 @@ class Player:
         # TODO confirm index should be 0
         return None
 
-    def __give_hint(self):
+    def __give_hint(self, player_choice: int, choice):
         if self.game.tokens > 0:
             self.game.tokens -= 1
-            # TODO return user input as either a rank or suit string?
+            # TODO handle choice logic
         return None
 
     def __discard(self, hand_ind: int):
@@ -98,6 +102,8 @@ class Player:
         return played_card
 
     # TODO Adjust for Return types
+    # COMMENT I think logic is better handled in Game - Vik
+    """
     def turn(self, turn_type: int, hand_ind = None):
         if turn_type == 1:
             self.__give_hint()
@@ -105,26 +111,51 @@ class Player:
             self.__discard(hand_ind)
         else:
             return self.__play(hand_ind)
+    """
 
 class Game:
-    self.deck = Pack()
-    self.lives = 3
-    self.tokens = 8
-
     def __init__(self, num_players):
+        self.deck = Pack()
+        self.lives = 3
+        self.tokens = 8
         self.players = [Player(self) for i in num_players]
         self.board = []
 
 
     def deal(self):
-        # TODO Implement
+        for i in range(5):
+            for player in self.players:
+                player.__draw()
         return None
-
-    def play(self, ):
 
     def run(self):
         self.deck.shuffle()
         self.deal()
+
+        num_players = len(self.players)
+        turn = 0
+        while self.lives > 0 and len(self.deck) > 0:
+
+            turn_choice = int(input("Choose something to do: \n 1) Give hint\n 2) Discard\n 3) Play\n"))
+            if turn_choice == 1:
+                player_ind = int(input("Which player would you like to give a hint to?"))
+                choice_type = int(input("1) Rank\n 2) Suit\n"))
+                choice = ""
+                if choice_type == 1:
+                    choice = int(input("Which rank would you like to inform player ", player_ind, " about?"))
+                elif choice_type == 2:
+                    choice = int(input("Which rank would you like to inform player ", player_ind, " about?"))
+                self.players[turn].__give_hint(player_ind, choice)
+            elif turn_choice == 2:
+                hand_ind = int(input"Which card would you like to discard (1-5)?")
+                assert 1 <= hand_ind <= 5
+                self.players[turn].__discard(hand_ind)
+            elif turn_choice == 3:
+                hand_ind = int(input"Which card would you like to play (1-5)?")
+                assert 1 <= hand_ind <= 5
+                self.players[turn].__play(hand_ind)
+                
+            turn = (turn + 1) % num_players
 
 
 
