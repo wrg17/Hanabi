@@ -22,8 +22,6 @@ SUIT_RAINBOW = "Rainbow"
 
 class Card:
     # rank and suit names
-
-
     """
     REQUIRES 
     _Rank is one of "One", "Two", "Three", "Four", "Five"
@@ -71,20 +69,27 @@ class Pack:
 
 
 class Player:
-    def __init__(self):
+    def __init__(self, parent_g):
         self.hand = []
-        self.game =
+        self.game = parent_g
 
     def __draw(self):
-        # TODO Implement
+        self.hand.append(self.game.deck.pop(0))
+        # TODO confirm index should be 0
         return None
 
     def __give_hint(self):
-        # TODO Implement
+        if self.game.tokens > 0:
+            self.game.tokens -= 1
+            # TODO return user input as either a rank or suit string?
         return None
 
     def __discard(self, hand_ind: int):
-        # TODO Implement
+        if self.game.tokens < 8:
+            self.game.tokens += 1
+            self.__draw()
+            return hand.pop(hand_ind)
+        
         return None
 
     def __play(self, hand_ind: int):
@@ -107,7 +112,7 @@ class Game:
     self.tokens = 8
 
     def __init__(self, num_players):
-        self.players = [Player() for i in num_players]
+        self.players = [Player(self) for i in num_players]
         self.board = []
 
 
