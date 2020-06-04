@@ -4,51 +4,81 @@ import Game
 
 
 class Player:
-    def __init__(self, player_id, parent_g):
+    def __init__(self, player_id, player_type):
         self.hand = []
         self.id = player_id
-        self.game = parent_g
 
         # TODO Below
         """
-        implement input as a function pointer to handle input getting from the user and also for bot
+        - implement input as a function pointer to handle input getting from the user and also for bot
+        - get_input(type: int) is its name
+            - type == 0 --> get turn_type (1,2, or 3)
+            - type == 1 --> get input for hint
+            - type == 2 --> get input for discard
+            - type == 3 --> get input for play
+        - implement output as a function point to handle giving output to different types of players
+            - encode various outputs like above
         """
         if game_type == 1:
             self.input = int()
 
-    def __draw(self):
-        self.hand.append(self.game.deck.draw_top())
+    def __draw(self, deck: Pack):
+        self.hand.append(deck.draw_top())
 
-    def __give_hint(self, player_choice: int, choice):
-        if self.game.tokens > 0:
-            self.game.tokens -= 1
-            # TODO handle choice logic
-        return None
+    def __give_hint(self):
+        [player_choice, hint_type, hint] = self.get_input(1)
+        h = ""
+        if hint_type == 0:
+            assert 0 <= hint < len(rank_list)
+            h = rank_list[hint]
+        elif hint_type == 1:
+            assert 0 <= hint < len(suit_list)
+            h = suit_list[hint]
+        # TODO change once output function is implemented
+        print("Player ", self.id, " tells player ",
+              player_choice, " about all of their ", h, " cards.\n")
 
-    def __discard(self, hand_ind: int):
-        if self.game.tokens < 8:
-            self.game.tokens += 1
-            self.__draw()
-            return self.hand.pop(hand_ind)
+    def __discard(self):
+        hand_ind = self.get_input(2)
+        # TODO change once output function is implemented
+        print("Player ", self.id, " has discarded a", self.hand[hand_ind].get_suit_str(),
+              " ", self.hand[hand_ind].get_rank_str(), ".\n")
+        return self.hand.pop(hand_ind)
+        
 
-        return None
+    def __play(self):
+        hand_ind = self.get_input(3)
+        # TODO change once output function is implemented
+        print("Player ", self.id, " has played a", self.hand[hand_ind].get_suit_str(),
+              " ", self.hand[hand_ind].get_rank_str(), ".\n")
+        return self.hand.pop(hand_ind)
 
-    def __play(self, hand_ind: int):
-        played_card = self.hand.pop(hand_ind)
-        self.__draw()
-        return played_card
-
-    # TODO Adjust for Return types
-    # COMMENT I think logic is better handled in Game - Vik
     # TODO adjust turn to work with the input object from game
-    def turn(self, game_type: int, turn_type: int):
+    def turn(self, tokens: int, lives: int, deck, discard_pile, board):
+        # TODO need to implement some try catch feature to check that turn choice is allowed
+        turn_type = self.get_input(0, tokens)
+        
         if turn_type == 1:
-            self.__give_hint()
+                self.__give_hint()
+                tokens += 1
         elif turn_type == 2:
-            self.__discard(hand_ind)
+            # TODO change logic when we change the structure of discard_pile
+            discard_pile.append(self.__discard())
+            self.__draw(deck)
         else:
-            return self.__play(hand_ind)
+            card = self.__play(hand_ind)
+            if card.is_playable(board):
+                # TODO change logic when we change the structure of board
+                board.append(card)
+            else:
+                # TODO change logic when we change the structure of discard_pile
+                discard_pile.append(card)
+                lives -= 1
+                
+            self.__draw(deck)
 
+
+        """
         turn_choice = int(input("Choose something to do: \n1) Give hint\n2) Discard\n3) Play\n"))
         if turn_choice == 1:
             player_ind = int(input("Which player would you like to give a hint to?"))
@@ -67,4 +97,4 @@ class Player:
             hand_ind = int(input("Which card would you like to play (1-5)?"))
             assert 1 <= hand_ind <= 5
             self.__play(hand_ind)
-
+        """

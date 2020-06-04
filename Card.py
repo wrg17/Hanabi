@@ -48,6 +48,10 @@ class Card:
     def get_suit_str(self):
         return suit_list[self.__suit]
 
+    def is_playable(board):
+        # TODO implement once an organization of board is decided on
+        return False
+
 
 
 

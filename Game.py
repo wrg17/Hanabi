@@ -9,6 +9,7 @@ class Game:
         self.lives = 3
         self.tokens = 8
         self.players = [Player(i, self) for i in num_players]
+        self.discard_pile = []
         self.board = []
 
     # TODO work with main to end the program and declare a loss
@@ -32,9 +33,13 @@ class Game:
             if self.lives < 1:
                 self.zero_lives()
 
+            self.players[turn].turn(self.tokens, self.lives, self.deck,
+                                    self.discard_pile, self.board)
+
             turn = (turn + 1) % num_players
 
         for t in range(num_players):
             if self.lives < 1:
                 self.zero_lives()
-            self.players[(turn + t) % num_players]
+            self.players[(turn + t) % num_players].turn(self.tokens, self.lives, self.deck,
+                                    self.discard_pile, self.board)
