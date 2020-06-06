@@ -9,8 +9,8 @@ class Game:
         self.lives = 3
         self.tokens = 8
         self.players = [Player(i, self) for i in num_players]
-        self.discard_pile = []
-        self.board = []
+        self.discard_pile = {}
+        self.board = {}
 
     # TODO work with main to end the program and declare a loss
     def zero_lives(self):

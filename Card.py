@@ -40,7 +40,7 @@ class Card:
         return self.__rank
 
     def get_rank_str(self):
-        return rank_list[self.__rank]
+        return rank_list[self.__rank - 1]
 
     def get_suit(self):
         return self.__suit
@@ -49,8 +49,10 @@ class Card:
         return suit_list[self.__suit]
 
     def is_playable(board):
-        # TODO implement once an organization of board is decided on
-        return False
+        if self.__rank == 1:
+            return !(self.__suit in board)
+        else:    
+            return self.__suit in board and board[self.__suit].get_rank() == self.__rank - 1
 
 
 

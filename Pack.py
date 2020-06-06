@@ -23,9 +23,9 @@ class Pack:
                 suit_quantity = card_quantity
 
             for rank_ind, quantity in zip(range(len(rank_list)), suit_quantity):
-                self.card_quantity[Card(rank_ind, suit_ind)] = quantity
+                self.card_quantity[Card(rank_ind + 1, suit_ind)] = quantity
                 for i in range(quantity):
-                    self.deck.append(Card(rank_ind, suit_ind))
+                    self.deck.append(Card(rank_ind + 1, suit_ind))
 
     def shuffle(self):
         shuffle(self.deck)

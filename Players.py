@@ -1,6 +1,5 @@
 import Card
 import Pack
-import Game
 
 
 class Player:
@@ -68,11 +67,11 @@ class Player:
         else:
             card = self.__play(hand_ind)
             if card.is_playable(board):
-                # TODO change logic when we change the structure of board
-                board.append(card)
+                board[card.get_suit()] = card
+                if card.get_rank() == 5:
+                    tokens += 1
             else:
-                # TODO change logic when we change the structure of discard_pile
-                discard_pile.append(card)
+                discard_pile[card.get_suit()].append(card)
                 lives -= 1
                 
             self.__draw(deck)
