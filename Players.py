@@ -52,7 +52,7 @@ class Player:
               " ", self.hand[hand_ind].get_rank_str(), ".\n")
         return self.hand.pop(hand_ind)
 
-    # TODO adjust turn to work with the input object from game
+    # TODO split discard_pile into safe and unsafe (pair of dictionaries)
     def turn(self, tokens: int, lives: int, deck, discard_pile, board):
         # TODO need to implement some try catch feature to check that turn choice is allowed
         turn_type = self.get_input(0, tokens)
@@ -62,7 +62,7 @@ class Player:
                 tokens += 1
         elif turn_type == 2:
             # TODO change logic when we change the structure of discard_pile
-            discard_pile.append(self.__discard())
+            discard_pile[card.get_suit()].append(card)
             self.__draw(deck)
         else:
             card = self.__play(hand_ind)

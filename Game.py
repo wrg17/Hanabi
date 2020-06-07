@@ -5,6 +5,7 @@ import Players
 
 class Game:
     def __init__(self, game_type: int, num_players):
+        # TODO split discard pile into safe and unsare (pair of dictionaries)
         self.deck = Pack()
         self.lives = 3
         self.tokens = 8
@@ -33,6 +34,7 @@ class Game:
             if self.lives < 1:
                 self.zero_lives()
 
+            # TODO switch to a container object ?
             self.players[turn].turn(self.tokens, self.lives, self.deck,
                                     self.discard_pile, self.board)
 
