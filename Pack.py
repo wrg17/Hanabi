@@ -1,4 +1,5 @@
 import Card
+from random import shuffle
 
 
 class Pack:
