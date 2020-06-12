@@ -2,7 +2,7 @@ import socket
 import select
 
 HEADER_SIZE = 10
-# TODO Determine where this should be actually held
+# choose IP based on what launches the program --> communicate with Client.py after.
 IP = '192.168.1.234'
 PORT = 8888
 
@@ -41,6 +41,7 @@ while True:
 			sockets_list.append(client_socket)
 			clients[client_socket] = user
 			print(f"Accepted new connection from {client_address[0]}:{client_address[1]}. Username: {user['data'].decode('utf-8')}")
+			# TODO Implement IP security protocols for trusted and not trusted connections
 		else:
 			message = receive_message(notified_socket)
 			if message is False:

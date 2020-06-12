@@ -90,9 +90,6 @@ class ClientWindow(QWidget):
 			self.message_area.append(self.new_messages.pop(0))
 
 
-#thread = Thread(target=receive_messages, daemon=False)
-#thread.start()
-
 def main():
 	app = QApplication(sys.argv)
 	main = ClientWindow()
@@ -101,33 +98,3 @@ def main():
 if __name__ == '__main__':
 	main()
 
-
-"""
-def receive_messages(self):
-		while True:
-			try:
-				username_header = self.client_socket.recv(HEADER_SIZE)
-				if not len(username_header):
-					print("Connection closed by the server")
-					sys.exit()
-				username_length = int(username_header.decode('utf-8').strip())
-				username = client_socket.recv(username_length).decode('utf-8')
-				message_header = client_socket.recv(HEADER_SIZE)
-				message_length = int(message_header.decode('utf-8').strip())
-				message = client_socket.recv(message_length).decode('utf-8')
-				self.print(f"{username}: {message}")
-				self.new_messages.append(f"{username}: {message}")
-
-			except IOError as e:
-				if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
-					print('Reading error', str(e))
-					sys.exit() 
-				continue
-
-			except Exception as e:
-				print('General error', str(e))
-				sys.exit()
-
-			sleep(0.5)
-
-"""
