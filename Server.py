@@ -3,6 +3,8 @@ import select
 
 HEADER_SIZE = 10
 # choose IP based on what launches the program --> communicate with Client.py after.
+host_name = socket.gethostname()
+ip_addr = socket.gethostbyname(host_name)
 IP = '192.168.1.234'
 PORT = 8888
 
