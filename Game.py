@@ -3,6 +3,11 @@ import Pack
 import Players
 
 
+def variant(var_num: int):
+    if var_num == 1:
+        return Game()
+
+
 class Game:
     def __init__(self, game_type: int, num_players):
         # TODO split discard pile into safe and unsare (pair of dictionaries)

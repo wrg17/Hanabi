@@ -10,16 +10,18 @@ class IOpy:
 
 
 class Output:
-    def __init__(self, g: Game):
+    # TODO pass a function that either sends to web or to console
+    def __init__(self, f, g: Game):
+        self.out_func = f
 
-        if game_type == 1:
-            self.hint_out = None
-            self.discard_out = None
-            self.play_out = None
-        elif game_type == 2:
-            self.hint_out = None
-            self.discard_out = None
-            self.play_out = None
+    def hint_output(self):
+        pass
+
+    def discard_output(self):
+        pass
+
+    def play_output(self):
+        pass
 
 
 class Console(Output):
