@@ -1,0 +1,117 @@
+body {
+    background: green;
+}
+
+.card-container {
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    /*width: 200px; height: 280px;*/
+    background-color: transparent;
+}
+
+.card {
+    width: 100%; height: 100%;
+    font-size: 0.3em;
+    border-radius: 5%;
+    background-color: #fff;
+    border: 0.01em solid black;
+    transform-style: preserve-3d;
+    transition: all 0.8s ease;
+}
+
+.card:hover {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.face, .back {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    backface-visibility: hidden;
+
+    width: 90%; height: 92%;
+    margin: auto;
+
+    border-radius: 5%;
+    background-color: #97c4f8;
+    box-shadow: inset 0 0 0.25em 0.25em rgb(50, 50, 255);
+}
+
+.back {
+    transform: rotateY( 180deg ) ;
+}
+
+.back img {
+    width: 100%; height: 100%;
+    filter: grayscale(100%) invert(8%) sepia(100%) saturate(7418%) hue-rotate(248deg) brightness(93%) contrast(143%);
+}
+
+/* Filters generated with https://codepen.io/sosuke/pen/Pjoqqp */
+.face.red {
+    color: #f00;
+}
+.face.red img {
+    filter: invert(16%) sepia(81%) saturate(7500%) hue-rotate(359deg) brightness(100%) contrast(110%);
+}
+
+.face.blue {
+    color: #0000ff;
+}
+.face.blue img {
+    filter: invert(8%) sepia(100%) saturate(7418%) hue-rotate(248deg) brightness(93%) contrast(143%);
+}
+
+.face.green {
+    color: #00ff00;
+}
+.face.green img {
+    filter: invert(53%) sepia(47%) saturate(1917%) hue-rotate(80deg) brightness(115%) contrast(125%);
+}
+
+.face.yellow {
+    color: #ffff00;
+}
+.face.yellow img {
+    filter: invert(84%) sepia(73%) saturate(4244%) hue-rotate(359deg) brightness(98%) contrast(109%);
+}
+
+.face.white {
+    color: #ffffff;
+}
+.face.white img {
+    filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(298deg) brightness(103%) contrast(101%);
+}
+
+.face-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 65%;
+    height: 65%;
+    transform: translate(-50%, -50%);
+}
+
+.face-corner-rank {
+    font-family: "Comic Sans MS", serif;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1em;
+
+    -webkit-text-stroke: 0.025em #000;
+    line-height: 1;
+}
+
+.face-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.face-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
